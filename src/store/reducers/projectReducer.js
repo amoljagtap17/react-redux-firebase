@@ -1,4 +1,6 @@
-const initialState = {}
+const initialState = {
+  projects: []
+}
 
 const projectReducer = (state = initialState, action) => {
   return state
