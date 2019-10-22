@@ -2,9 +2,9 @@ import React from 'react'
 import { Formik, Form } from 'formik'
 import { InputField } from '../form'
 
-const SignInForm = () => (
+const SignUpForm = () => (
   <Form className="white">
-    <h5 className="grey-text text-darken-3">Sign In</h5>
+    <h5 className="grey-text text-darken-3">Sign Up</h5>
     <InputField type="email" label="Email" id="email" name="email" />
     <InputField
       type="password"
@@ -12,9 +12,11 @@ const SignInForm = () => (
       id="password"
       name="password"
     />
+    <InputField label="First Name" id="firstName" name="firstName" />
+    <InputField label="Last Name" id="lastName" name="lastName" />
     <div className="input-field">
       <button type="submit" className="btn teal lighten-1 z-depth-0">
-        Login
+        Sign Up
       </button>
     </div>
   </Form>
@@ -22,7 +24,9 @@ const SignInForm = () => (
 
 const initialValues = {
   email: '',
-  password: ''
+  password: '',
+  firstName: '',
+  lastName: ''
 }
 
 const handleSubmit = (values, actions) => {
@@ -31,16 +35,16 @@ const handleSubmit = (values, actions) => {
   actions.resetForm(initialValues)
 }
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <div className="container">
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        component={SignInForm}
+        component={SignUpForm}
       />
     </div>
   )
 }
 
-export default SignIn
+export default SignUp
