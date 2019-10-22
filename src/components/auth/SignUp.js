@@ -1,8 +1,9 @@
 import React from 'react'
-import { Formik, Form } from 'formik'
-import { InputField } from '../form'
+import * as Yup from 'yup'
+import { Form } from 'formik'
+import { Formik, InputField, SubmitButton } from '../form'
 
-const SignUpForm = () => (
+const SignUpForm = props => (
   <Form className="white">
     <h5 className="grey-text text-darken-3">Sign Up</h5>
     <InputField type="email" label="Email" id="email" name="email" />
@@ -14,11 +15,7 @@ const SignUpForm = () => (
     />
     <InputField label="First Name" id="firstName" name="firstName" />
     <InputField label="Last Name" id="lastName" name="lastName" />
-    <div className="input-field">
-      <button type="submit" className="btn teal lighten-1 z-depth-0">
-        Sign Up
-      </button>
-    </div>
+    <SubmitButton btnText="Sign Up" />
   </Form>
 )
 
@@ -28,6 +25,21 @@ const initialValues = {
   firstName: '',
   lastName: ''
 }
+
+const SignUpSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid Email')
+    .required('Email is required!'),
+  password: Yup.string().required('Password is required!'),
+  firstName: Yup.string()
+    .min(2, 'Too short!')
+    .max(15, 'Too long!')
+    .required('First Name is required!'),
+  lastName: Yup.string()
+    .min(2, 'Too short!')
+    .max(15, 'Too long!')
+    .required('Last Name is required!')
+})
 
 const handleSubmit = (values, actions) => {
   console.log('values', values, actions)
@@ -39,6 +51,7 @@ const SignUp = () => {
   return (
     <div className="container">
       <Formik
+        validationSchema={SignUpSchema}
         initialValues={initialValues}
         onSubmit={handleSubmit}
         component={SignUpForm}

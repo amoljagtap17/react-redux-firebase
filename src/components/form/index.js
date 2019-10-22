@@ -1,3 +1,5 @@
 import InputField from './InputField'
+import SubmitButton from './SubmitButton'
+import Formik from './Formik'
 
-export { InputField }
+export { InputField, SubmitButton, Formik }

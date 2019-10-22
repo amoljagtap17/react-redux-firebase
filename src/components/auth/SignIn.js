@@ -1,6 +1,7 @@
 import React from 'react'
-import { Formik, Form } from 'formik'
-import { InputField } from '../form'
+import * as Yup from 'yup'
+import { Form } from 'formik'
+import { Formik, InputField, SubmitButton } from '../form'
 
 const SignInForm = () => (
   <Form className="white">
@@ -12,11 +13,7 @@ const SignInForm = () => (
       id="password"
       name="password"
     />
-    <div className="input-field">
-      <button type="submit" className="btn teal lighten-1 z-depth-0">
-        Login
-      </button>
-    </div>
+    <SubmitButton btnText="Login" />
   </Form>
 )
 
@@ -24,6 +21,13 @@ const initialValues = {
   email: '',
   password: ''
 }
+
+const SignInSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid Email')
+    .required('Email is required!'),
+  password: Yup.string().required('Password is required!')
+})
 
 const handleSubmit = (values, actions) => {
   console.log('values', values, actions)
@@ -35,6 +39,7 @@ const SignIn = () => {
   return (
     <div className="container">
       <Formik
+        validationSchema={SignInSchema}
         initialValues={initialValues}
         onSubmit={handleSubmit}
         component={SignInForm}
