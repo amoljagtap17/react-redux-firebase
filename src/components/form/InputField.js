@@ -1,10 +1,17 @@
 import React from 'react'
 import { Field, ErrorMessage } from 'formik'
 
-const InputField = ({ type = 'text', label, id, name }) => (
+const InputField = ({
+  type = 'text',
+  component = 'input',
+  label,
+  id,
+  name,
+  ...rest
+}) => (
   <div className="input-field">
     <label htmlFor={id}>{label}</label>
-    <Field type={type} id={id} name={name} />
+    <Field type={type} component={component} id={id} name={name} {...rest} />
     <ErrorMessage
       name={name}
       component="span"
